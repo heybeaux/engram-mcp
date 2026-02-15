@@ -25,7 +25,7 @@ export function loadConfig(): Config {
     process.exit(1);
   }
 
-  const baseUrl = (process.env.ENGRAM_BASE_URL || 'http://localhost:3001').replace(/\/$/, '');
+  const baseUrl = (process.env.ENGRAM_BASE_URL || 'https://api.openengram.ai').replace(/\/$/, '');
 
   // Enforce HTTPS for non-localhost
   const url = new URL(baseUrl);

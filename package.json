@@ -1,6 +1,6 @@
 {
   "name": "@openengram/mcp",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "MCP server for Engram — persistent memory for AI agents. Works with Claude Desktop, Cursor, and any MCP client.",
   "type": "module",
   "main": "./dist/index.js",
@@ -49,5 +49,13 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/agent-memory/engram-mcp-server/issues"
+  },
+  "homepage": "https://github.com/agent-memory/engram-mcp-server#readme"
 }

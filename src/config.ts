@@ -13,26 +13,17 @@ export interface Config {
 }
 
 export function loadConfig(): Config {
-  const apiKey = process.env.ENGRAM_API_KEY;
-  const userId = process.env.ENGRAM_USER_ID;
+  const apiKey = process.env.ENGRAM_API_KEY || '';
+  const userId = process.env.ENGRAM_USER_ID || 'Beaux';
 
-  if (!apiKey) {
-    console.error('ENGRAM_API_KEY is required. Set it in your environment or Claude Desktop config.');
-    process.exit(1);
-  }
-  if (!userId) {
-    console.error('ENGRAM_USER_ID is required. Set it in your environment or Claude Desktop config.');
-    process.exit(1);
-  }
-
-  const baseUrl = (process.env.ENGRAM_BASE_URL || 'https://api.openengram.ai').replace(/\/$/, '');
+  const baseUrl = (process.env.ENGRAM_API_URL || process.env.ENGRAM_BASE_URL || 'https://api.openengram.ai').replace(/\/$/, '');
 
   // Enforce HTTPS for non-localhost
   const url = new URL(baseUrl);
   const isLocalhost = url.hostname === 'localhost' || url.hostname === '127.0.0.1' || url.hostname === '::1';
   const tlsSkipVerify = process.env.ENGRAM_TLS_SKIP_VERIFY === 'true';
-  if (!isLocalhost && url.protocol !== 'https:') {
-    console.error(`HTTPS required for non-localhost URLs. Got: ${baseUrl}`);
+  if (!isLocalhost && url.protocol !== 'https:' && !process.env.ENGRAM_ALLOW_HTTP) {
+    console.error(`HTTPS required for non-localhost URLs. Got: ${baseUrl}. Set ENGRAM_ALLOW_HTTP=true to override.`);
     process.exit(1);
   }
 
